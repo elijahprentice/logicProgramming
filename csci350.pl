@@ -18,9 +18,11 @@ sum-up-numbers-general(L, N) :- is_list(L), from-list2(0,L,N).
 pass-var(W, [X|Y], Z, A) :- check-min(W,Y,X,Z,A).
 check-min(W, Y, X, Z, A) :- not(number(X)), pass-var(W,Y,Z,A).
 check-min(W, Y, X, Z, A) :- number(X), not(length(Y,0)), X < A, pass-var(W,Y,X).
-check-min(W, Y, X, Z, A) :- number(X), length(Y,0), pass-var-L1(W,X,Z).
-pass-var-L1([W|V], X, Z) :- check-min-L1(W,V,X,Z).
-check-min-L1(W, V, X, Z) :- not(number(W)), pass-var-L1(V,X,Z).
+check-min(W, Y, X, Z, A) :- number(X), length(Y,0), X < A, pass-var-L1(W,X,Z).
+pass-var-L1([W|V], X, Z) :- check-min-L1(W,V,W,X,Z).
+pass-var-L1([W|V], Y, X, Z) :- check-min-L1(W,V,Y,X,Z).
+check-min-L1(W, V, Y, X, Z) :- not(number(W)), pass-var-L1(V,Y,X,Z).
+check-min-L1(W, V, Y, X, Z) :- number(W), not(length(V,0)), W < Y, W > X, pass-var-L1(V,W,X,Z).
 check-min(X, Y, Z) :- not(length(X,0)), X =:= Z.
 min-above-min(L1, L2, N) :- length(L2,0), check-min(L1,0,N);
 min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), not(length(L2,0)), pass-var(L1,L2,N,500).
