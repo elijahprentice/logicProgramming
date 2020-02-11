@@ -23,7 +23,7 @@ check-min(W, Y, X, Z, A) :- number(X), not(length(Y,0)), X >= A, pass-var(W,Y,Z,
 check-min(W, Y, X, Z, A) :- number(X), length(Y,0), X < A, pass-var-two(W,X,Z).
 check-min(W, Y, X, Z, A) :- number(X), length(Y,0), X >= A, pass-var-two(W,A,Z).
 pass-var-two([W|V], X, Z) :- not(number(W)), pass-var-two(V,X,Z).
-pass-var-two([W|V], X, Z) :- number(W), check-min-two(W,V,W,X,Z).
+pass-var-two([W|V], X, Z) :- number(W), check-min-two(W,V,500,X,Z).
 pass-var-two([W|V], Y, X, Z) :- check-min-two(W,V,Y,X,Z).
 check-min-two(W, V, Y, X, Z) :- not(number(W)), not(length(V,0)), pass-var-two(V,Y,X,Z).
 check-min-two(W, V, Y, X, Z) :- not(number(W)), length(V,0), check-min-final(Y,Z).
@@ -33,5 +33,5 @@ check-min-two(W, V, Y, X, Z) :- number(W), not(length(V,0)), W =< X, pass-var-tw
 check-min-two(W, V, Y, X, Z) :- number(W), length(V,0), W < Y, W > X, check-min-final(W,Z).
 check-min-two(W, V, Y, X, Z) :- number(W), length(V,0), W > Y, W > X, check-min-final(Y,Z).
 check-min-final(Y,Z) :- Y =:= Z.
-min-above-min(L1, L2, N) :- length(L2,0).
+min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), length(L2,0), pass-var-two(L1,0,N).
 min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), not(length(L2,0)), pass-var(L1,L2,N,500).
