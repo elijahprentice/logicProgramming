@@ -36,6 +36,10 @@ check-min-final(Y,Z) :- Y =:= Z.
 min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), length(L2,0), pass-var-two(L1,0,N).
 min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), not(length(L2,0)), pass-var(L1,L2,N,500).
 
+find-element([LH|LT], [NH|NT], X) :- not(number(LH)), not(number(NH)), LH =:= NH.
+find-element([LH|LT], [NH|NT], X) :- not(number(LH)), not(number(NH)), length(N,0).
+find-element([LH|LT], [NH|NT], X) :- number(LH), not(number(NH)).
+find-element([LH|LT], [NH|NT], X) :- not(number(LH)), number(NH).
 common-unique-elements(L1, L2, N) :- length(L1,0), length(N,0).
 common-unique-elements(L1, L2, N) :- length(L2,0), length(N,0).
-common-unique-elements(L1, L2, N) :- not(length(L1,0)), not(length(L2,0)), not(length(N,0)).
+common-unique-elements(L1, L2, N) :- not(length(L1,0)), not(length(L2,0)), not(length(N,0)), find-element(L1, N, L1).
