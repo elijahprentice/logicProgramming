@@ -35,3 +35,7 @@ check-min-two(W, V, Y, X, Z) :- number(W), length(V,0), W > Y, W > X, check-min-
 check-min-final(Y,Z) :- Y =:= Z.
 min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), length(L2,0), pass-var-two(L1,0,N).
 min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), not(length(L2,0)), pass-var(L1,L2,N,500).
+
+common-unique-elements(L1, L2, N) :- length(L1,0), length(N,0).
+common-unique-elements(L1, L2, N) :- length(L2,0), length(N,0).
+common-unique-elements(L1, L2, N) :- not(length(L1,0)), not(length(L2,0)), not(length(N,0)).
