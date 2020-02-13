@@ -39,11 +39,11 @@ min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), not(length(L2,0)), pass-va
 find-element([LH|LT], [NH|NT], X, Y) :- not(number(LH)), not(number(NH)), LH = NH, not(length(LT,0)), not(length(NT,0)), find-element(LT,NT,X,Y).
 find-element([LH|LT], [NH|NT], X, Y) :- not(number(LH)), not(number(NH)), LH = NH, length(LT,0), not(length(NT,0)), find-element(X,NT,X,Y).
 find-element([LH|LT], [NH|NT], X, Y) :- not(number(LH)), not(number(NH)), LH = NH, length(NT,0).
-find-element([LH|LT], [NH|NT], X, Y) :- number(LH), number(NH), LH =:= NH, not(length(LT,0)), not(length(NT,0)), find-element(LT,NT,X).
-find-element([LH|LT], [NH|NT], X, Y) :- number(LH), number(NH), LH =:= NH, length(LT,0), not(length(NT,0)), find-element(X,NT,X).
-find-element([LH|LT], [NH|NT], X) :- number(LH), number(NH), LH =:= NH, length(NT,0).
-find-element([LH|LT], N, X) :- is_list(LH), not(length(LT,0)), find-nested(LH,N,LT).
-find-element([LH|LT], N, X) :- is_list(LH), length(LT,0), find-nested(LH,N,LT).
+find-element([LH|LT], [NH|NT], X, Y) :- number(LH), number(NH), LH =:= NH, not(length(LT,0)), not(length(NT,0)), find-element(LT,NT,X,Y).
+find-element([LH|LT], [NH|NT], X, Y) :- number(LH), number(NH), LH =:= NH, length(LT,0), not(length(NT,0)), find-element(X,NT,X,Y).
+find-element([LH|LT], [NH|NT], X, Y) :- number(LH), number(NH), LH =:= NH, length(NT,0).
+find-element([LH|LT], N, X, Y) :- is_list(LH), not(length(LT,0)), find-nested(LH,N,LT,Y).
+find-element([LH|LT], N, X, Y) :- is_list(LH), length(LT,0), find-nested(LH,N,LT,Y).
 find-nested([LH|LT], [NH|NT], T) :- not(number(LH)), not(number(NH)), LH = NH, not(length(LT,0)), not(length(NT,0)), find-nested(LT,NT,T).
 find-nested([LH|LT], [NH|NT], T) :- not(number(LH)), not(number(NH)), LH = NH, length(LT,0), find-element(T,NT,T).
 find-nested([LH|LT], [NH|NT], T) :- not(number(LH)), not(number(NH)), LH = NH, length(NT,0).
