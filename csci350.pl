@@ -36,8 +36,8 @@ check-min-final(Y,Z) :- Y =:= Z.
 min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), length(L2,0), pass-var-two(L1,0,N).
 min-above-min(L1, L2, N) :- is_list(L1), is_list(L2), not(length(L2,0)), pass-var(L1,L2,N,500).
 
-find-element([LH|LT], [NH|NT], X) :- not(number(LH)), not(number(NH)), LH = NH, not(length(LT,0)), not(length(NT,0)), find-element(LT,NT,X).
-find-element([LH|LT], [NH|NT], X) :- not(number(LH)), not(number(NH)), LH = NH, length(LT,0), not(length(NT,0)), find-element(X,NT,X).
+find-element([LH|LT], [NH|NT], X, Y) :- not(number(LH)), not(number(NH)), LH = NH, not(length(LT,0)), not(length(NT,0)), find-element(LT,NT,X).
+find-element([LH|LT], [NH|NT], X, Y) :- not(number(LH)), not(number(NH)), LH = NH, length(LT,0), not(length(NT,0)), find-element(X,NT,X).
 find-element([LH|LT], [NH|NT], X) :- not(number(LH)), not(number(NH)), LH = NH, length(NT,0).
 find-element([LH|LT], [NH|NT], X) :- number(LH), number(NH), LH =:= NH, not(length(LT,0)), not(length(NT,0)), find-element(LT,NT,X).
 find-element([LH|LT], [NH|NT], X) :- number(LH), number(NH), LH =:= NH, length(LT,0), not(length(NT,0)), find-element(X,NT,X).
@@ -52,10 +52,10 @@ find-nested([LH|LT], [NH|NT], T) :- number(LH), number(NH), LH =:= NH, length(LT
 find-nested([LH|LT], [NH|NT], T) :- number(LH), number(NH), LH =:= NH, length(NT,0).
 find-nested([LH|LT], N, T) :- is_list(LH), not(length(LT,0)), find-nested(LH,N,[LT|T]).
 find-nested([LH|LT], N, T) :- is_list(LH), length(LT,0), find-nested(LH,N,[LT|T]).
-find-nested([LH|LT], N) :- not(length(LT,0)), find-nested(LT,N).
-find-nested([LH|LT], N) :- length(LT,0).
+find-nested([LH|LT], N, T) :- not(length(LT,0)), find-nested(LT,N,T).
+find-nested([LH|LT], N, T) :- length(LT,0), find-element(T,N,T).
 find-element([LH|LT], N, X) :- not(length(LT,0)), find-element(LT,N,X).
 find-element([LH|LT], N, X) :- length(LT,0), find-element(X,N,X).
 common-unique-elements(L1, L2, N) :- length(L1,0), length(N,0).
 common-unique-elements(L1, L2, N) :- length(L2,0), length(N,0).
-common-unique-elements(L1, L2, N) :- not(length(L1,0)), not(length(L2,0)), not(length(N,0)), find-element(L1, N, L1), find-element(L2, N, L2).
+common-unique-elements(L1, L2, N) :- not(length(L1,0)), not(length(L2,0)), not(length(N,0)), find-element(L1, N, L1, L1), find-element(L2, N, L2, L2).
