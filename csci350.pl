@@ -51,6 +51,9 @@ find-nested([LH|LT], [NH|NT]) :- number(LH), number(NH), LH =:= NH, not(length(L
 find-nested([LH|LT], [NH|NT]) :- number(LH), number(NH), LH =:= NH, length(LT,0).
 find-nested([LH|LT], [NH|NT]) :- number(LH), number(NH), LH =:= NH, length(NT,0).
 find-nested([LH|LT], N) :- is_list(LH), not(length(LT,0)), find-nested(LH,N), find-nested(LT,N).
+find-nested([LH|LT], N) :- is_list(LH), length(LT,0), find-nested(LH,N).
+find-nested([LH|LT], N) :- not(length(LT,0)), find-nested(LT,N).
+find-nested([LH|LT], N) :- length(LT,0).
 find-element([LH|LT], N, X) :- not(length(LT,0)), find-element(LT,N,X).
 find-element([LH|LT], N, X) :- length(LT,0), find-element(X,N,X).
 common-unique-elements(L1, L2, N) :- length(L1,0), length(N,0).
